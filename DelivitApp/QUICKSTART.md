@@ -1,179 +1,186 @@
-# Guide de Démarrage Rapide - DelivitApp
+# 🚀 Guide de Démarrage Rapide - DelivitApp avec Expo
 
-## 📦 Installation
+## 📋 Prérequis
 
-### 1. Installer les dépendances
+- **Node.js** (v16 ou supérieur)
+- **npm** ou **yarn**
+- **Expo CLI** : `npm install -g expo-cli`
+- **Expo Go** (sur votre mobile pour tester)
+  - [iOS App Store](https://apps.apple.com/app/expo-go/id982107779)
+  - [Google Play Store](https://play.google.com/store/apps/details?id=host.exp.exponent)
+
+## 🔧 Installation
+
 ```bash
 cd DelivitApp
-npm install
+
+# Installer les dépendances
+npm install --legacy-peer-deps
+
+# Ou avec yarn
+yarn install
 ```
 
-### 2. Configuration des variables d'environnement
-```bash
-cp .env.example .env
-```
-Modifiez le fichier `.env` avec vos propres clés API.
+## ▶️ Lancement de l'application
 
-### 3. Installation iOS (macOS uniquement)
-```bash
-cd ios
-pod install
-cd ..
-```
-
-### 4. Lancer l'application
-
-**Pour Android:**
-```bash
-npm run android
-```
-
-**Pour iOS:**
-```bash
-npm run ios
-```
-
-**Démarre Metro Bundler seul:**
+### Option 1: Serveur de développement
 ```bash
 npm start
+# ou
+expo start
 ```
 
-## 🏗️ Structure du Projet
+Un QR code apparaîtra dans le terminal. Scannez-le avec :
+- **Android** : Expo Go app
+- **iOS** : Appareil photo natif (iOS 11+)
 
-```
-DelivitApp/
-├── App.js                 # Point d'entrée principal
-├── package.json           # Dépendances et scripts
-├── README.md              # Documentation
-├── .env.example           # Exemple de configuration
-└── src/
-    ├── assets/            # Images, fonts, animations
-    ├── components/        # Composants réutilisables
-    │   ├── common/        # Boutons, inputs, etc.
-    │   ├── auth/          # Composants d'authentification
-    │   └── ...
-    ├── screens/           # Écrans de l'application
-    │   ├── auth/          # Login, Register, Splash
-    │   ├── catalog/       # Home, ProductDetail
-    │   ├── cart/          # Cart, Checkout
-    │   ├── profile/       # Profile, Orders
-    │   └── admin/         # Écrans admin (à implémenter)
-    ├── navigation/        # Configuration React Navigation
-    ├── store/             # Redux Toolkit
-    │   └── slices/        # Auth, Cart, Products, Orders
-    ├── services/          # Appels API
-    └── utils/             # Fonctions utilitaires
+### Option 2: Émulateurs/Simulateurs
+```bash
+# Android
+npm run android
+# ou
+expo start --android
+
+# iOS (Mac uniquement)
+npm run ios
+# ou
+expo start --ios
+
+# Web
+npm run web
+# ou
+expo start --web
 ```
 
-## 🔧 Fonctionnalités Implémentées
+## 📱 Fonctionnalités incluses
 
 ### ✅ Authentification
-- Écran de splash
+- Écran de bienvenue (Splash)
 - Connexion
 - Inscription
-- Déconnexion
-- Gestion du state avec Redux
 
-### ✅ Catalogue Produits
-- Liste des produits avec grille
-- Filtrage par catégorie
-- Recherche de produits
-- Détails du produit
-- Ajout au panier
+### ✅ Navigation
+- Stack Navigator (écrans d'auth + modales)
+- Bottom Tabs (navigation principale)
+- 4 onglets : Accueil, Panier, Commandes, Profil
 
-### ✅ Panier
-- Voir les articles du panier
-- Modifier les quantités
-- Supprimer des articles
-- Calcul automatique du total
+### ✅ Catalogue
+- Liste des produits
+- Détails produit
+- Recherche et filtres
 
-### ✅ Commandes
-- Processus de checkout
-- Sélection de l'adresse de livraison
-- Choix du mode de paiement (MonCash, NatCash, Stripe, Cash)
+### ✅ Panier & Commandes
+- Gestion du panier
+- Checkout multi-paiement (MonCash, NatCash, Stripe, Cash)
 - Historique des commandes
-- Suivi du statut des commandes
 
-### ✅ Profil Utilisateur
+### ✅ Profil
 - Informations utilisateur
-- Menu de navigation
 - Paramètres
 - Déconnexion
 
-## 🎨 Design System
+## 🔐 Configuration des variables d'environnement
 
-**Couleurs principales:**
-- Primaire: `#FF6B35` (Orange)
-- Secondaire: `#f5f5f5` (Gris clair)
-- Texte: `#333`, `#666`, `#999`
-- Succès: `#4CAF50`
-- Erreur: `#ff4444`
+Copiez le fichier `.env.example` vers `.env` :
 
-## 📱 Navigation
-
-L'application utilise React Navigation v6 avec:
-- **Stack Navigator**: Pour la navigation principale (Splash → Login → Main)
-- **Bottom Tab Navigator**: Pour les onglets principaux (Accueil, Panier, Commandes, Profil)
-
-## 🔌 Intégrations de Paiement
-
-Le projet est configuré pour supporter:
-- **MonCash**: API de paiement haïtienne
-- **NatCash**: Solution de paiement mobile
-- **Stripe**: Paiement par carte bancaire internationale
-- **Cash**: Paiement à la livraison
-
-## 🚀 Prochaines Étapes
-
-### À implémenter:
-1. **Backend API**: Créer l'API backend pour connecter l'application
-2. **AsyncStorage**: Persister les données utilisateur localement
-3. **Push Notifications**: Intégrer Firebase Cloud Messaging
-4. **Géolocalisation**: Suivi en temps réel des livraisons
-5. **Chat**: Support client en temps réel
-6. **Écrans Marchand**: Gestion des produits et commandes
-7. **Écrans Admin**: Dashboard administrateur
-8. **Tests**: Tests unitaires et d'intégration
-
-### Améliorations UI/UX:
-- Animations Lottie pour le chargement
-- Skeleton screens pour le loading
-- Dark mode
-- Support multi-langues (Français, Créole, Anglais)
-
-## 🐛 Résolution de Problèmes
-
-### Erreur: "No space left on device"
 ```bash
-# Nettoyer le cache npm
-npm cache clean --force
-
-# Supprimer node_modules et réinstaller
-rm -rf node_modules
-npm install
+cp .env.example .env
 ```
 
-### Erreur Metro Bundler
-```bash
-# Réinitialiser le cache
-npm start -- --reset-cache
+Puis éditez `.env` avec vos clés API :
+
+```env
+API_URL=https://api.delivit.com
+MONCASH_CLIENT_ID=votre_client_id
+STRIPE_PUBLIC_KEY=votre_clé_publique
+NATCASH_API_KEY=votre_clé_api
 ```
 
-### Problèmes Android
-```bash
-# Nettoyer le build Android
-cd android && ./gradlew clean && cd ..
+## 🏗️ Architecture du projet
+
+```
+DelivitApp/
+├── src/
+│   ├── assets/          # Images, animations, fonts
+│   ├── components/      # Composants réutilisables
+│   │   ├── auth/        # Composants d'authentification
+│   │   ├── cart/        # Composants du panier
+│   │   ├── catalog/     # Composants du catalogue
+│   │   ├── common/      # Composants communs
+│   │   └── profile/     # Composants de profil
+│   ├── navigation/      # Configuration navigation
+│   ├── screens/         # Écrans principaux
+│   │   ├── auth/        # Écrans d'authentification
+│   │   ├── cart/        # Écrans du panier
+│   │   ├── catalog/     # Écrans du catalogue
+│   │   └── profile/     # Écrans de profil
+│   ├── services/        # API calls (Axios)
+│   ├── store/           # Redux Toolkit
+│   │   └── slices/      # Slices Redux
+│   └── utils/           # Utilitaires
+├── App.js               # Point d'entrée
+├── app.json             # Configuration Expo
+├── package.json         # Dépendances
+└── .env                 # Variables d'environnement
 ```
 
-### Problèmes iOS
-```bash
-# Nettoyer le build iOS
-cd ios && xcodebuild clean && cd ..
+## 🎨 Personnalisation
+
+### Couleurs de la marque
+Modifiez les couleurs dans `src/utils/constants.js` :
+
+```javascript
+export const COLORS = {
+  primary: '#FF6B35',    // Orange Delivit
+  secondary: '#2ECC71',  // Vert succès
+  // ...
+};
 ```
 
-## 📞 Support
+### Icônes et Splash Screen
+Remplacez les images placeholder dans `src/assets/images/` :
+- `icon.png` (1024x1024)
+- `splash.png` (1242x2436)
+- `adaptive-icon.png` (1080x1080)
+- `favicon.png` (48x48)
 
-Pour toute question ou problème, consultez la documentation complète dans le README.md principal.
+## 🧪 Tests
+
+```bash
+# Lancer les tests
+npm test
+```
+
+## 📦 Build pour production
+
+### Android APK
+```bash
+expo build:android
+# ou avec EAS Build
+eas build --platform android
+```
+
+### iOS IPA
+```bash
+expo build:ios
+# ou avec EAS Build
+eas build --platform ios
+```
+
+## 🔗 Liens utiles
+
+- [Documentation Expo](https://docs.expo.dev/)
+- [React Navigation](https://reactnavigation.org/)
+- [Redux Toolkit](https://redux-toolkit.js.org/)
+- [Delivit README](./README.md)
+
+## 🆘 Support
+
+En cas de problème :
+1. Vérifiez que toutes les dépendances sont installées
+2. Redémarrez le serveur Expo (`Ctrl+C` puis `npm start`)
+3. Effacez le cache : `expo start -c`
+4. Consultez les issues GitHub
 
 ---
 
